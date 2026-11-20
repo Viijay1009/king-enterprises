@@ -1,0 +1,311 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy-950: #061631;
+  --color-navy-900: #0a2148;
+  --color-navy-800: #0d2b5e;
+  --color-navy-700: #163c7a;
+  --color-gold-500: #c79a2e;
+  --color-gold-400: #d9b252;
+  --color-gold-300: #e8cc85;
+  --color-leaf-800: #1f6529;
+  --color-leaf-700: #287a33;
+  --color-leaf-600: #2f8a3b;
+  --color-leaf-400: #5cb866;
+  --color-steel-600: #56616f;
+  --color-steel-500: #76818f;
+  --color-steel-400: #8c97a6;
+  --color-steel-200: #d5dae1;
+  --color-steel-100: #e9ecf0;
+  --color-paper: #f5f7fa;
+
+  --font-sans: var(--font-public-sans), ui-sans-serif, system-ui, sans-serif;
+
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Defined outside @theme: Tailwind only emits theme variables that a utility uses. */
+:root {
+  --font-display: var(--font-big-shoulders), "Arial Narrow", sans-serif;
+  --font-stencil: var(--font-big-shoulders-stencil), var(--font-big-shoulders), "Arial Narrow", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-navy-950);
+}
+
+/* Big Shoulders: condensed industrial display, set at its largest optical size. */
+.display {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 72;
+  font-weight: 800;
+  letter-spacing: 0.005em;
+  line-height: 0.95;
+  text-wrap: balance;
+}
+
+/* Stencil cut, reserved for the hero headline: the lettering sprayed on bins and lorries. */
+.stencil {
+  font-family: var(--font-stencil);
+  font-variation-settings: "opsz" 72;
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-gold-500);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Engineering-drawing hatch for image placeholders. */
+.placeholder-hatch {
+  background-image: repeating-linear-gradient(
+    135deg,
+    color-mix(in srgb, currentColor 9%, transparent) 0 1px,
+    transparent 1px 14px
+  );
+}
+
+/* Shared press feedback for buttons and links styled as buttons. */
+.press {
+  transition:
+    transform 160ms var(--ease-out-quint),
+    background-color 180ms var(--ease-out-quint),
+    color 180ms var(--ease-out-quint),
+    border-color 180ms var(--ease-out-quint);
+}
+.press:active {
+  transform: scale(0.97);
+}
+
+/* Hero load sequence: the page's one orchestrated moment. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+}
+
+/* Each headline line is "sprayed" through the stencil, left to right. */
+@keyframes spray {
+  from {
+    clip-path: inset(0 100% 0 0);
+    filter: blur(6px);
+    opacity: 0.4;
+  }
+  60% {
+    filter: blur(0);
+    opacity: 1;
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+/* The photo settles as the page arrives. */
+@keyframes settle {
+  from {
+    transform: scale(1.06);
+  }
+}
+/* The bale tag drops on its string and swings to rest. */
+@keyframes hang {
+  0% {
+    opacity: 0;
+    transform: translateY(-48px) rotate(-16deg);
+  }
+  45% {
+    opacity: 1;
+    transform: translateY(0) rotate(3deg);
+  }
+  72% {
+    transform: rotate(-6deg);
+  }
+  88% {
+    transform: rotate(-3deg);
+  }
+  100% {
+    transform: rotate(-4deg);
+  }
+}
+
+.hero-rise {
+  animation: rise 720ms var(--ease-out-quint) both;
+  animation-delay: calc(120ms + var(--i, 0) * 90ms);
+}
+.hero-spray {
+  animation: spray 760ms cubic-bezier(0.65, 0, 0.35, 1) both;
+  animation-delay: calc(150ms + var(--i, 0) * 220ms);
+}
+.hero-settle {
+  animation: settle 2200ms var(--ease-out-quint) both;
+}
+.hero-hang {
+  transform: rotate(-4deg);
+  transform-origin: 50% 0;
+  animation: hang 1500ms var(--ease-out-quint) 900ms both;
+}
+@media (max-width: 63.99rem) {
+  .hero-hang {
+    transform: rotate(-2deg);
+    animation-name: rise;
+    animation-duration: 700ms;
+  }
+}
+
+/* Material cards: a small lift, the photo eases in, and the gold bar fills from the left. */
+.material-card {
+  transition:
+    transform 260ms var(--ease-out-quint),
+    box-shadow 260ms var(--ease-out-quint);
+}
+.material-card-photo {
+  transition: transform 600ms var(--ease-out-quint);
+}
+.material-card-bar {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 360ms var(--ease-out-quint);
+}
+@media (hover: hover) {
+  .material-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 22px 40px -24px rgb(6 22 49 / 0.35);
+  }
+  .material-card:hover .material-card-photo {
+    transform: scale(1.04);
+  }
+  .material-card:hover .material-card-bar {
+    transform: scaleX(1);
+  }
+}
+
+/* Pickup route: the road fills, the lorry drives it, and stations light as it arrives. */
+.road-base {
+  background: repeating-linear-gradient(
+    180deg,
+    var(--color-steel-200) 0 10px,
+    transparent 10px 18px
+  );
+}
+.road-fill,
+.lorry-run,
+.station {
+  transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+}
+.road-fill {
+  transform: scaleY(0);
+  transform-origin: top;
+  transition-property: transform;
+  transition-duration: 1800ms;
+  transition-delay: 250ms;
+}
+.lorry-run {
+  transition-property: transform;
+  transition-duration: 1800ms;
+  transition-delay: 250ms;
+}
+.station {
+  background: white;
+  border-color: var(--color-steel-200);
+  color: var(--color-navy-800);
+  transition-property: background-color, border-color, color, box-shadow;
+  transition-duration: 350ms;
+}
+[data-inview="true"] .road-fill {
+  transform: none;
+}
+/* Parks just short of the last station so the lorry stays visible. */
+[data-inview="true"] .lorry-run {
+  transform: translateX(calc(100% - 4.25rem));
+}
+[data-inview="true"] .station {
+  background: var(--color-navy-900);
+  border-color: var(--color-navy-900);
+  color: var(--color-gold-400);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--color-gold-500) 18%, transparent);
+}
+@media (min-width: 64rem) {
+  .road-base {
+    background: repeating-linear-gradient(90deg, var(--color-steel-200) 0 10px, transparent 10px 18px);
+  }
+  .road-fill {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+}
+
+/* Enquiry form: chip ticks and the sent confirmation draw themselves in. */
+.chip-check path {
+  stroke-dasharray: 1;
+  animation: draw 220ms var(--ease-out-quint) both;
+}
+.sent-panel {
+  animation: rise 360ms var(--ease-out-quint) both;
+}
+.sent-tick {
+  stroke-dasharray: 1;
+  animation: draw 420ms var(--ease-out-quint) 160ms both;
+}
+@keyframes draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Dotted survey-map paper behind the corridor map. */
+.map-paper {
+  background-image: radial-gradient(color-mix(in srgb, white 9%, transparent) 1px, transparent 1.2px);
+  background-size: 22px 22px;
+}
+
+/* Corridor map routes draw when the map enters view. */
+.route {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition:
+    stroke-dashoffset 1200ms var(--ease-out-quint),
+    stroke 200ms var(--ease-out-quint),
+    opacity 200ms var(--ease-out-quint);
+}
+[data-inview="true"] .route {
+  stroke-dashoffset: 0;
+}
+.pin-fade {
+  opacity: 0;
+  transform: scale(0.6);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition:
+    opacity 300ms var(--ease-out-quint),
+    transform 400ms var(--ease-out-quint);
+}
+[data-inview="true"] .pin-fade {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+}
