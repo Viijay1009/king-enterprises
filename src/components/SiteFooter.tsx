@@ -115,7 +115,12 @@ export function SiteFooter() {
 
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-6 text-sm text-steel-400 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
-          <p>© King Enterprises. All rights reserved.</p>
+          <p className="flex flex-wrap items-center gap-x-6 gap-y-1">
+            <span>© King Enterprises. All rights reserved.</span>
+            <Link href="/privacy" className={`${link} inline-flex min-h-11 items-center underline underline-offset-4`}>
+              Privacy policy
+            </Link>
+          </p>
           <p className="flex flex-wrap gap-x-6 gap-y-1">
             <span>GSTIN {company.gst}</span>
             <span>MSME {company.msme}</span>

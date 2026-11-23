@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ContactSection } from "@/components/ContactSection";
 import { CorridorMap } from "@/components/CorridorMap";
 import { Hero } from "@/components/Hero";
 import { ImageSlot } from "@/components/ImageSlot";
@@ -145,7 +146,7 @@ export default function Home() {
           <div className="mt-14 flex flex-col gap-5 rounded-2xl bg-gold-500 px-6 py-6 text-navy-950 sm:flex-row sm:items-center sm:justify-between sm:px-8">
             <p className="display text-3xl sm:text-4xl">Looking for an industrial scrap business partner?</p>
             <Link
-              href="/business#contact"
+              href="#contact"
               className="press inline-flex min-h-12 shrink-0 items-center justify-center rounded-md bg-navy-950 px-6 font-semibold text-white hover:bg-navy-800"
             >
               Contact us
@@ -192,7 +193,7 @@ export default function Home() {
       </section>
 
       {/* Hand-off to page two */}
-      <section className="pb-20 sm:pb-28">
+      <section>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid overflow-hidden rounded-2xl bg-navy-900 text-white lg:grid-cols-12">
             <div className="flex flex-col justify-center p-6 sm:p-10 lg:col-span-6 lg:p-12">
@@ -201,18 +202,12 @@ export default function Home() {
                 Our business approach, the facility and people behind it, and the recycling material plant we are
                 working towards.
               </p>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-8">
                 <Link
                   href="/business"
                   className="press inline-flex min-h-12 items-center justify-center rounded-md bg-gold-500 px-6 font-semibold text-navy-950 hover:bg-gold-400"
                 >
                   Explore our business
-                </Link>
-                <Link
-                  href="/business#contact"
-                  className="press inline-flex min-h-12 items-center justify-center rounded-md border border-white/35 px-6 font-semibold text-white hover:border-white hover:bg-white/10"
-                >
-                  Contact us
                 </Link>
               </div>
             </div>
@@ -225,6 +220,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <ContactSection />
     </main>
   );
 }

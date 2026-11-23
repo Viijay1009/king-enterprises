@@ -61,7 +61,7 @@ export function Hero() {
               Explore our business
             </Link>
             <Link
-              href="/business#contact"
+              href="#contact"
               className="press inline-flex min-h-13 items-center justify-center rounded-md border border-white/35 px-7 text-[17px] font-semibold text-white backdrop-blur-sm hover:border-white hover:bg-white/10"
             >
               Contact us

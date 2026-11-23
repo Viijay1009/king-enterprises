@@ -15,5 +15,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
       images: [`${siteUrl}/images/facility-press.webp`, `${siteUrl}/images/vision-plant.webp`],
     },
+    {
+      url: `${siteUrl}/privacy`,
+      changeFrequency: "yearly",
+      priority: 0.2,
+    },
   ];
 }

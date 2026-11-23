@@ -18,6 +18,10 @@ export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  // Both pages end with the contact section; stay on the current one when it has it.
+  const links = nav.map((item) =>
+    item.label === "Contact" && pathname === "/" ? { ...item, href: "/#contact" } : item,
+  );
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -53,7 +57,7 @@ export function SiteHeader() {
 
         <nav aria-label="Main" className="hidden lg:block">
           <ul className="flex items-center gap-7 text-[15px] font-medium text-navy-900">
-            {nav.map((item) => (
+            {links.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
@@ -99,7 +103,7 @@ export function SiteHeader() {
       >
         <nav aria-label="Mobile" className="mx-auto max-w-7xl px-4 py-3 sm:px-6">
           <ul className="flex flex-col">
-            {nav.map((item, i) => (
+            {links.map((item, i) => (
               <li
                 key={item.href}
                 className="hero-rise"

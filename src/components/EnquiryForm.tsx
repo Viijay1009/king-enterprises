@@ -25,44 +25,6 @@ function validate(f: Fields) {
 const inputClass =
   "mt-1.5 block w-full min-h-12 rounded-lg border border-steel-200 bg-paper px-3.5 text-base text-navy-950 transition-colors duration-150 placeholder:text-steel-500 hover:border-steel-400 focus:border-navy-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-navy-800/20 aria-[invalid=true]:border-red-700";
 
-// A chip is a real checkbox or radio, visually replaced, so keyboard and screen readers work as normal.
-function Chip({
-  type,
-  name,
-  label,
-  checked,
-  onChange,
-}: {
-  type: "checkbox" | "radio";
-  name: string;
-  label: string;
-  checked: boolean;
-  onChange: () => void;
-}) {
-  return (
-    <label className="press relative cursor-pointer">
-      <input type={type} name={name} checked={checked} onChange={onChange} className="peer sr-only" />
-      <span className="flex min-h-11 items-center gap-2 rounded-full border border-steel-200 bg-white px-4 text-[15px] font-medium text-navy-900 transition-colors duration-150 peer-checked:border-navy-900 peer-checked:bg-navy-900 peer-checked:text-white peer-focus-visible:outline-3 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-gold-500 hover:border-navy-800">
-        {checked && (
-          <svg aria-hidden viewBox="0 0 16 16" className="chip-check size-4 text-gold-400" fill="none" stroke="currentColor" strokeWidth="2.2">
-            <path d="M3 8.5 6.5 12 13 4.5" strokeLinecap="round" strokeLinejoin="round" pathLength={1} />
-          </svg>
-        )}
-        {label}
-      </span>
-    </label>
-  );
-}
-
-function ChipGroup({ legend, children }: { legend: string; children: React.ReactNode }) {
-  return (
-    <fieldset>
-      <legend className="text-sm font-semibold text-navy-900">{legend}</legend>
-      <div className="mt-3 flex flex-wrap gap-2">{children}</div>
-    </fieldset>
-  );
-}
-
 export function EnquiryForm() {
   const [fields, setFields] = useState<Fields>(empty);
   const [topic, setTopic] = useState("");
@@ -131,15 +93,37 @@ export function EnquiryForm() {
         submit("email");
       }}
     >
-      <div className="space-y-7 p-6 sm:p-8">
-        <ChipGroup legend="What is your enquiry about?">
-          {topicOptions.map((t) => (
-            <Chip key={t} type="radio" name="topic" label={t} checked={topic === t} onChange={() => setTopic(t)} />
-          ))}
-        </ChipGroup>
-      </div>
-
-      <div className="grid gap-5 border-t border-dashed border-steel-200 p-6 sm:grid-cols-2 sm:p-8">
+      <div className="grid gap-5 p-6 sm:grid-cols-2 sm:p-8">
+        <div className="sm:col-span-2">
+          <label htmlFor="enq-topic" className="text-sm font-semibold text-navy-900">
+            What is your enquiry about?
+          </label>
+          <div className="relative">
+            <select
+              id="enq-topic"
+              value={topic}
+              onChange={(e) => setTopic(e.target.value)}
+              className={`${inputClass.replace("text-navy-950", topic ? "text-navy-950" : "text-steel-600")} cursor-pointer appearance-none pr-11`}
+            >
+              <option value="">Choose an option</option>
+              {topicOptions.map((t) => (
+                <option key={t} value={t} className="text-navy-950">
+                  {t}
+                </option>
+              ))}
+            </select>
+            <svg
+              aria-hidden
+              viewBox="0 0 16 16"
+              className="pointer-events-none absolute top-1/2 right-4 size-4 -translate-y-1/2 text-navy-800"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path d="m4 6 4 4 4-4" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+        </div>
         {field("name", "Your name", { autoComplete: "name" })}
         {field("company", "Company", { autoComplete: "organization" })}
         <div className="sm:col-span-2">{field("phone", "Phone", { type: "tel", autoComplete: "tel", inputMode: "tel" })}</div>

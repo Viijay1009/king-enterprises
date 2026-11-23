@@ -303,11 +303,7 @@ body {
   stroke-dashoffset: 0;
 }
 
-/* Enquiry form: chip ticks and the sent confirmation draw themselves in. */
-.chip-check path {
-  stroke-dasharray: 1;
-  animation: draw 220ms var(--ease-out-quint) both;
-}
+/* Enquiry form: the sent confirmation draws itself in. */
 .sent-panel {
   animation: rise 360ms var(--ease-out-quint) both;
 }
