@@ -1,15 +1,28 @@
 import Image from "next/image";
-import { company, formatPhone, locations, primaryPhone } from "@/content/site";
+import Link from "next/link";
+import { company, contacts, email, formatPhone, locations, primaryPhone } from "@/content/site";
 
-const links = [
-  { href: "#materials", label: "What we collect" },
-  { href: "#process", label: "How a pickup works" },
-  { href: "#customers", label: "Who we clear scrap for" },
-  { href: "#datasheet", label: "Company details" },
-  { href: "#contact", label: "Request a pickup" },
+const groups = [
+  {
+    title: "Home",
+    links: [
+      { href: "/#about", label: "About us" },
+      { href: "/#business", label: "Our business" },
+      { href: "/#network", label: "Industrial network" },
+      { href: "/#leadership", label: "Leadership" },
+    ],
+  },
+  {
+    title: "Business & future",
+    links: [
+      { href: "/business#approach", label: "Business approach" },
+      { href: "/business#infrastructure", label: "Infrastructure" },
+      { href: "/business#vision", label: "Future vision" },
+      { href: "/business#why", label: "Why King Enterprises" },
+      { href: "/business#contact", label: "Contact us" },
+    ],
+  },
 ];
-
-const tagline = ["Reduce.", "Recycle.", "Recreate."];
 
 const heading = "text-sm font-semibold text-white";
 const link = "transition-colors duration-150 hover:text-white";
@@ -17,12 +30,10 @@ const link = "transition-colors duration-150 hover:text-white";
 export function SiteFooter() {
   return (
     <footer className="relative overflow-hidden bg-navy-950 text-steel-200">
-      {/* The brand's own tagline, in the hero's stencil cut, closes the page */}
+      {/* The company's own line, in the hero's stencil cut, closes every page */}
       <div className="mx-auto max-w-7xl px-4 pt-16 sm:px-6 sm:pt-20 lg:px-8">
-        <p className="stencil flex flex-wrap gap-x-[0.25em] text-[3.6rem] text-white sm:text-[5.5rem] lg:text-[7.2rem] xl:text-[8.6rem]">
-          {tagline.map((word) => (
-            <span key={word}>{word}</span>
-          ))}
+        <p className="stencil max-w-[16ch] text-[2.9rem] text-balance text-white sm:text-[4.6rem] lg:text-[6rem]">
+          {company.tagline}
         </p>
         <div aria-hidden className="mt-8 h-1 w-24 bg-gold-500" />
       </div>
@@ -36,65 +47,52 @@ export function SiteFooter() {
             <p className="display text-3xl text-white uppercase">King Enterprises</p>
           </div>
           <p className="mt-5 max-w-[38ch] text-[15px] leading-relaxed">
-            Industrial scrap collection and recycling for automotive plants on the Sriperumbudur–Oragadam corridor,
-            since {company.established}. A group company of {company.group}.
+            Industrial scrap trading, scrap management and recycling solutions from Sriperumbudur, Tamil Nadu, since{" "}
+            {company.established}.
           </p>
-          <a
-            href="#contact"
+          <Link
+            href="/business#contact"
             className="press mt-7 inline-flex min-h-12 items-center justify-center rounded-md bg-gold-500 px-6 font-semibold text-navy-950 hover:bg-gold-400"
           >
-            Request a pickup
-          </a>
+            Contact us
+          </Link>
         </div>
 
-        <nav aria-label="Footer" className="lg:col-span-2">
-          <p className={heading}>On this page</p>
-          <ul className="mt-4 space-y-1 text-[15px]">
-            {links.map((l) => (
-              <li key={l.href}>
-                <a href={l.href} className={`${link} inline-flex min-h-9 items-center`}>
-                  {l.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        {groups.map((g) => (
+          <nav key={g.title} aria-label={g.title} className="lg:col-span-2">
+            <p className={heading}>{g.title}</p>
+            <ul className="mt-4 space-y-1 text-[15px]">
+              {g.links.map((l) => (
+                <li key={l.href}>
+                  <Link href={l.href} className={`${link} inline-flex min-h-9 items-center`}>
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ))}
 
-        <div className="lg:col-span-3">
-          <p className={heading}>Visit us</p>
-          <div className="mt-4 space-y-5 text-[15px] leading-relaxed">
-            {[locations.factory, locations.office].map((loc) => (
-              <address key={loc.label} className="not-italic">
-                <span className="block text-sm text-gold-400">{loc.label}</span>
-                {loc.lines.map((line) => (
-                  <span key={line} className="block">
-                    {line}
-                  </span>
-                ))}
-              </address>
-            ))}
-          </div>
-        </div>
-
-        <div className="lg:col-span-3">
+        <div className="sm:col-span-2 lg:col-span-4">
           <p className={heading}>Talk to us</p>
-          <ul className="mt-4 space-y-1 text-[15px]">
-            {[...locations.factory.phones, ...locations.office.phones].map((p) => (
-              <li key={p}>
-                <a href={`tel:+91${p}`} className={`${link} display inline-flex min-h-9 items-center text-2xl text-white tabular-nums hover:text-gold-300`}>
-                  {formatPhone(p)}
+          <ul className="mt-4 grid gap-x-6 gap-y-1 text-[15px] sm:grid-cols-2 lg:grid-cols-1">
+            {contacts.map((c) => (
+              <li key={c.phone}>
+                <a href={`tel:+91${c.phone}`} className={`${link} group inline-flex min-h-9 items-baseline gap-3`}>
+                  <span className="display text-2xl text-white tabular-nums group-hover:text-gold-300">
+                    {formatPhone(c.phone)}
+                  </span>
+                  <span className="text-sm text-steel-400">{c.who}</span>
                 </a>
               </li>
             ))}
           </ul>
           <ul className="mt-4 space-y-1 text-[15px]">
-            {[locations.factory.email, locations.office.email].map((e) => (
-              <li key={e}>
-                <a href={`mailto:${e}`} className={`${link} wrap-anywhere`}>
-                  {e}
-                </a>
-              </li>
-            ))}
+            <li>
+              <a href={`mailto:${email}`} className={`${link} wrap-anywhere`}>
+                {email}
+              </a>
+            </li>
             <li>
               <a
                 href={`https://wa.me/91${primaryPhone}`}
@@ -109,19 +107,21 @@ export function SiteFooter() {
               </a>
             </li>
           </ul>
-          <p className="mt-4 text-sm text-steel-400">Monday to Saturday, two shifts</p>
+          <p className="mt-4 text-sm leading-relaxed text-steel-400">
+            {locations.factory.lines[0]}, {locations.factory.lines[1]}
+          </p>
         </div>
       </div>
 
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-6 text-sm text-steel-400 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
-          <p>© 2026 King Enterprises, Sriperumbudur</p>
+          <p>© King Enterprises. All rights reserved.</p>
           <p className="flex flex-wrap gap-x-6 gap-y-1">
             <span>GSTIN {company.gst}</span>
             <span>MSME {company.msme}</span>
           </p>
           <a
-            href="#top"
+            href="#main"
             className="press group inline-flex min-h-11 items-center gap-2 self-start rounded-md border border-white/15 px-4 font-semibold text-white hover:border-gold-500 md:self-auto"
           >
             Back to top

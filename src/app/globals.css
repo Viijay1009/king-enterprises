@@ -188,59 +188,101 @@ body {
   }
 }
 
-/* Pickup route: the road fills, the lorry drives it, and stations light as it arrives. */
-.road-base {
-  background: repeating-linear-gradient(
-    180deg,
-    var(--color-steel-200) 0 10px,
-    transparent 10px 18px
-  );
+/* In-view reveals: each plays once, when its block scrolls into view (see InView.tsx). */
+
+/* Company at a glance: the gold rules fill left to right, one cell after another. */
+.ledger-rule {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 700ms var(--ease-out-quint);
+  transition-delay: calc(var(--i, 0) * 90ms);
 }
-.road-fill,
-.lorry-run,
-.station {
-  transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
-}
-.road-fill {
-  transform: scaleY(0);
-  transform-origin: top;
-  transition-property: transform;
-  transition-duration: 1800ms;
-  transition-delay: 250ms;
-}
-.lorry-run {
-  transition-property: transform;
-  transition-duration: 1800ms;
-  transition-delay: 250ms;
-}
-.station {
-  background: white;
-  border-color: var(--color-steel-200);
-  color: var(--color-navy-800);
-  transition-property: background-color, border-color, color, box-shadow;
-  transition-duration: 350ms;
-}
-[data-inview="true"] .road-fill {
+[data-inview="true"] .ledger-rule {
   transform: none;
 }
-/* Parks just short of the last station so the lorry stays visible. */
-[data-inview="true"] .lorry-run {
-  transform: translateX(calc(100% - 4.25rem));
-}
-[data-inview="true"] .station {
-  background: var(--color-navy-900);
-  border-color: var(--color-navy-900);
-  color: var(--color-gold-400);
-  box-shadow: 0 0 0 6px color-mix(in srgb, var(--color-gold-500) 18%, transparent);
-}
-@media (min-width: 64rem) {
-  .road-base {
-    background: repeating-linear-gradient(90deg, var(--color-steel-200) 0 10px, transparent 10px 18px);
+
+/* Leadership seals are stamped onto the plate. */
+@keyframes stamp {
+  0% {
+    opacity: 0;
+    transform: scale(1.4) rotate(-24deg);
   }
-  .road-fill {
-    transform: scaleX(0);
-    transform-origin: left;
+  55% {
+    opacity: 1;
+    transform: scale(0.94) rotate(-6deg);
   }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(-8deg);
+  }
+}
+.stamp {
+  transform: rotate(-8deg);
+}
+[data-inview="false"] .stamp {
+  opacity: 0;
+}
+[data-inview="true"] .stamp {
+  animation: stamp 560ms var(--ease-out-quint) both;
+  animation-delay: calc(150ms + var(--i, 0) * 180ms);
+}
+
+/* Future vision: the twelve arcs draw clockwise, then the count settles in. */
+.ring-seg {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 420ms var(--ease-out-quint);
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+[data-inview="true"] .ring-seg {
+  stroke-dashoffset: 0;
+}
+.ring-count {
+  opacity: 0;
+  transform: translateY(10px) scale(0.96);
+  transition:
+    opacity 500ms var(--ease-out-quint) 250ms,
+    transform 700ms var(--ease-out-quint) 250ms;
+}
+[data-inview="true"] .ring-count {
+  opacity: 1;
+  transform: none;
+}
+
+/* Workforce bar: each team's share grows in from the left. */
+.team-bar {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 600ms var(--ease-out-quint);
+  transition-delay: calc(var(--i, 0) * 110ms);
+}
+[data-inview="true"] .team-bar {
+  transform: none;
+}
+
+/* Why King Enterprises: a tick is drawn against each reason in turn. */
+.why-dot {
+  transform: scale(0.6);
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0.25;
+  transition:
+    transform 360ms var(--ease-out-quint),
+    opacity 240ms var(--ease-out-quint);
+  transition-delay: calc(var(--i, 0) * 80ms);
+}
+.why-tick {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 320ms var(--ease-out-quint);
+  transition-delay: calc(140ms + var(--i, 0) * 80ms);
+}
+[data-inview="true"] .why-dot {
+  transform: none;
+  opacity: 1;
+}
+[data-inview="true"] .why-tick {
+  stroke-dashoffset: 0;
 }
 
 /* Enquiry form: chip ticks and the sent confirmation draw themselves in. */

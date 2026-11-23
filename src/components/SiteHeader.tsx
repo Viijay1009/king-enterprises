@@ -1,20 +1,23 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { formatPhone, primaryPhone } from "@/content/site";
 
 const nav = [
-  { href: "#materials", label: "What we collect" },
-  { href: "#process", label: "How pickup works" },
-  { href: "#customers", label: "Customers" },
-  { href: "#datasheet", label: "Company details" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#about", label: "About us" },
+  { href: "/#business", label: "Our business" },
+  { href: "/#network", label: "Network" },
+  { href: "/business", label: "Business & future" },
+  { href: "/business#contact", label: "Contact" },
 ];
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -37,7 +40,7 @@ export function SiteHeader() {
       }`}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-4 sm:h-20 sm:px-6 lg:px-8">
-        <a href="#top" className="shrink-0" aria-label="King Enterprises, back to top">
+        <Link href="/" className="shrink-0" aria-label="King Enterprises home">
           <Image
             src="/brand/logo.png"
             alt="King Enterprises"
@@ -46,18 +49,19 @@ export function SiteHeader() {
             preload
             className="h-10 w-auto sm:h-12"
           />
-        </a>
+        </Link>
 
         <nav aria-label="Main" className="hidden lg:block">
           <ul className="flex items-center gap-7 text-[15px] font-medium text-navy-900">
             {nav.map((item) => (
               <li key={item.href}>
-                <a
+                <Link
                   href={item.href}
-                  className="relative py-2 after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:origin-left after:scale-x-0 after:bg-gold-500 after:transition-transform after:duration-200 hover:after:scale-x-100"
+                  aria-current={item.href === pathname ? "page" : undefined}
+                  className="relative py-2 after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:origin-left after:scale-x-0 after:bg-gold-500 after:transition-transform after:duration-200 hover:after:scale-x-100 aria-[current=page]:after:scale-x-100"
                 >
                   {item.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -101,13 +105,14 @@ export function SiteHeader() {
                 className="hero-rise"
                 style={{ "--i": i * 0.4, animationDuration: "360ms", animationDelay: `${i * 30}ms` } as React.CSSProperties}
               >
-                <a
+                <Link
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="flex min-h-12 items-center border-b border-steel-100 text-base font-medium text-navy-900"
+                  aria-current={item.href === pathname ? "page" : undefined}
+                  className="flex min-h-12 items-center border-b border-steel-100 text-base font-medium text-navy-900 aria-[current=page]:font-bold aria-[current=page]:text-navy-950"
                 >
                   {item.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

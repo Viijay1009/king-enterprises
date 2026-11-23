@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Big_Shoulders, Big_Shoulders_Stencil, Public_Sans } from "next/font/google";
+import { SiteFooter } from "@/components/SiteFooter";
+import { SiteHeader } from "@/components/SiteHeader";
 import { company, seo, siteUrl } from "@/content/site";
 import "./globals.css";
 
@@ -66,7 +68,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${display.variable} ${stencil.variable} ${body.variable} antialiased`}
     >
       <body className="font-sans">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-md focus:bg-white focus:px-4 focus:py-3 focus:font-semibold"
+        >
+          Skip to content
+        </a>
+        <SiteHeader />
         {children}
+        <SiteFooter />
         <SpeedInsights />
       </body>
     </html>

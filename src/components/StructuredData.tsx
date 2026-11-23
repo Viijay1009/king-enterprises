@@ -1,4 +1,4 @@
-import { company, hubs, locations, materials, seo, siteUrl } from "@/content/site";
+import { company, email, hubs, leaders, locations, pillars, seo, siteUrl } from "@/content/site";
 
 const postal = (lines: string[]) => ({
   "@type": "PostalAddress",
@@ -16,19 +16,19 @@ const graph = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "RecyclingCenter",
+      "@type": ["LocalBusiness", "RecyclingCenter"],
       "@id": `${siteUrl}/#business`,
       name: company.name,
       description: seo.description,
       slogan: company.tagline,
       url: `${siteUrl}/`,
       logo: `${siteUrl}/brand/logo.png`,
-      image: [`${siteUrl}/images/hero-yard.webp`, `${siteUrl}/images/facility-press.webp`],
+      image: [`${siteUrl}/images/hero-yard.webp`, `${siteUrl}/images/vision-plant.webp`],
       telephone: phone(locations.factory.phones[0]),
-      email: locations.factory.email,
+      email,
       address: postal(locations.factory.lines),
       foundingDate: String(company.established),
-      founder: { "@type": "Person", name: company.proprietor, jobTitle: "Proprietor" },
+      employee: leaders.map((l) => ({ "@type": "Person", name: l.name, jobTitle: l.role })),
       numberOfEmployees: { "@type": "QuantitativeValue", value: 72 },
       taxID: company.gst,
       parentOrganization: { "@type": "Organization", name: company.group },
@@ -36,14 +36,16 @@ const graph = {
         "@type": "Place",
         name: `${name}, Tamil Nadu`,
       })),
-      knowsAbout: ["Industrial scrap collection", "Scrap baling", "Automotive scrap recycling"],
+      knowsAbout: ["Industrial scrap trading", "Scrap management", "Material recovery", "Recycling"],
       hasOfferCatalog: {
         "@type": "OfferCatalog",
-        name: "Scrap we collect",
-        itemListElement: materials.map((m) => ({
-          "@type": "Offer",
-          itemOffered: { "@type": "Service", name: `${m.title} collection and recycling`, description: m.body },
-        })),
+        name: "Our business",
+        itemListElement: pillars
+          .filter((p) => !("planned" in p))
+          .map((p) => ({
+            "@type": "Offer",
+            itemOffered: { "@type": "Service", name: p.title, description: p.body },
+          })),
       },
       contactPoint: [
         ...locations.factory.phones.map((n) => ({
@@ -56,7 +58,6 @@ const graph = {
         {
           "@type": "ContactPoint",
           telephone: phone(locations.office.phones[0]),
-          email: locations.office.email,
           contactType: "customer service",
           areaServed: "IN",
         },
@@ -65,7 +66,6 @@ const graph = {
         "@type": "LocalBusiness",
         name: `${company.name} office`,
         telephone: phone(locations.office.phones[0]),
-        email: locations.office.email,
         address: postal(locations.office.lines),
       },
     },

@@ -56,7 +56,7 @@ export function CorridorMap() {
           viewBox="-40 30 880 440"
           className="h-auto w-full"
           role="group"
-          aria-label="Schematic map of King Enterprises' collection routes from the Kiloy yard"
+          aria-label="Schematic map of King Enterprises' industrial network around the Kiloy facility"
         >
           {/* NH 48, the Chennai–Bengaluru highway through Sriperumbudur */}
           <path
@@ -198,7 +198,7 @@ export function CorridorMap() {
               strokeWidth="2"
             />
             <text x={yard.x - 26} y={yard.y - 46} textAnchor="end" className="fill-white text-[16px] font-bold max-sm:text-[22px]">
-              Our yard, Kiloy
+              Our facility, Kiloy
             </text>
             <text x={yard.x - 26} y={yard.y - 28} textAnchor="end" className="fill-steel-400 text-[13px]">
               Sriperumbudur
@@ -209,7 +209,7 @@ export function CorridorMap() {
         <figcaption className="mt-2 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-white/10 pt-4 text-sm text-steel-200">
           <span className="flex items-center gap-2">
             <span aria-hidden className="size-3 rotate-45 rounded-[2px] bg-gold-500" />
-            Our yard
+            Our facility
           </span>
           <span className="flex items-center gap-2">
             <span aria-hidden className="size-3.5 rounded-full border-2 border-gold-400 bg-navy-950" />

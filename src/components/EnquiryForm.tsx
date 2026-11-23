@@ -1,11 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { locations, materials, primaryPhone } from "@/content/site";
+import { email, primaryPhone } from "@/content/site";
 
-const materialOptions = [...materials.map((m) => m.short), "Mixed or other"];
-const quantityOptions = ["Under 1 tonne", "1 to 5 tonnes", "Over 5 tonnes", "Not sure"];
-const frequencyOptions = ["One-off", "Weekly", "Monthly", "As needed"];
+const topicOptions = ["Selling industrial scrap", "Buying recovered material", "Industrial partnership", "Something else"];
 
 type Fields = {
   name: string;
@@ -67,9 +65,7 @@ function ChipGroup({ legend, children }: { legend: string; children: React.React
 
 export function EnquiryForm() {
   const [fields, setFields] = useState<Fields>(empty);
-  const [picked, setPicked] = useState<string[]>([]);
-  const [quantity, setQuantity] = useState("");
-  const [frequency, setFrequency] = useState("");
+  const [topic, setTopic] = useState("");
   const [errors, setErrors] = useState<ReturnType<typeof validate>>({});
   const [sent, setSent] = useState<"email" | "whatsapp" | null>(null);
 
@@ -78,16 +74,12 @@ export function EnquiryForm() {
     if (errors[key]) setErrors((er) => ({ ...er, [key]: undefined }));
   };
 
-  const toggle = (m: string) => setPicked((p) => (p.includes(m) ? p.filter((x) => x !== m) : [...p, m]));
-
   const compose = () =>
     [
       `Name: ${fields.name}`,
       `Company: ${fields.company}`,
       `Phone: ${fields.phone}`,
-      `Material: ${picked.join(", ") || "Not specified"}`,
-      `Approx. quantity: ${quantity || "Not specified"}`,
-      `How often: ${frequency || "Not specified"}`,
+      `Enquiry about: ${topic || "Not specified"}`,
       "",
       fields.message,
     ].join("\n");
@@ -101,8 +93,8 @@ export function EnquiryForm() {
       return;
     }
     if (channel === "email") {
-      const subject = `Scrap pickup enquiry from ${fields.company}`;
-      window.location.href = `mailto:${locations.factory.email}?cc=${locations.office.email}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(compose())}`;
+      const subject = `Business enquiry from ${fields.company}`;
+      window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(compose())}`;
     } else {
       window.open(`https://wa.me/91${primaryPhone}?text=${encodeURIComponent(compose())}`, "_blank", "noopener");
     }
@@ -140,29 +132,16 @@ export function EnquiryForm() {
       }}
     >
       <div className="space-y-7 p-6 sm:p-8">
-        <ChipGroup legend="What needs clearing? Pick any that apply">
-          {materialOptions.map((m) => (
-            <Chip key={m} type="checkbox" name="material" label={m} checked={picked.includes(m)} onChange={() => toggle(m)} />
+        <ChipGroup legend="What is your enquiry about?">
+          {topicOptions.map((t) => (
+            <Chip key={t} type="radio" name="topic" label={t} checked={topic === t} onChange={() => setTopic(t)} />
           ))}
         </ChipGroup>
-
-        <div className="grid gap-7 xl:grid-cols-2">
-          <ChipGroup legend="Roughly how much?">
-            {quantityOptions.map((q) => (
-              <Chip key={q} type="radio" name="quantity" label={q} checked={quantity === q} onChange={() => setQuantity(q)} />
-            ))}
-          </ChipGroup>
-          <ChipGroup legend="How often?">
-            {frequencyOptions.map((q) => (
-              <Chip key={q} type="radio" name="frequency" label={q} checked={frequency === q} onChange={() => setFrequency(q)} />
-            ))}
-          </ChipGroup>
-        </div>
       </div>
 
       <div className="grid gap-5 border-t border-dashed border-steel-200 p-6 sm:grid-cols-2 sm:p-8">
         {field("name", "Your name", { autoComplete: "name" })}
-        {field("company", "Company or plant", { autoComplete: "organization" })}
+        {field("company", "Company", { autoComplete: "organization" })}
         <div className="sm:col-span-2">{field("phone", "Phone", { type: "tel", autoComplete: "tel", inputMode: "tel" })}</div>
         <div className="sm:col-span-2">
           <label htmlFor="enq-message" className="text-sm font-semibold text-navy-900">
@@ -174,7 +153,7 @@ export function EnquiryForm() {
             value={fields.message}
             onChange={set("message")}
             className={`${inputClass} py-3`}
-            placeholder="Plant location, pickup timing, access for lorries"
+            placeholder="Materials involved, approximate quantities, plant location"
           />
         </div>
       </div>
@@ -189,7 +168,7 @@ export function EnquiryForm() {
             <p className="text-[15px] leading-relaxed text-navy-950">
               {sent === "email"
                 ? "Your email app has opened with the enquiry filled in. Press send there to reach our team."
-                : "WhatsApp has opened in a new tab with your enquiry. Press send there to reach our factory team."}
+                : "WhatsApp has opened in a new tab with your enquiry. Press send there to reach our team."}
             </p>
           </div>
         )}

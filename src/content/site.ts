@@ -1,6 +1,6 @@
-// Company facts come from the client's Electromags supplier registration form
-// (EMAGS/PUR/006). Bank, PAN, turnover and loan details from that form are
-// deliberately left off the public site.
+// Copy follows the client's "Revised Two-Page Website Content" draft. Company facts
+// come from their Electromags supplier registration form (EMAGS/PUR/006). Bank, PAN
+// and loan details from that form are deliberately left off the public site.
 
 // Canonical origin for metadata, sitemap and structured data. Set NEXT_PUBLIC_SITE_URL
 // to the live domain; on Vercel the production URL is used until then.
@@ -12,18 +12,23 @@ export const siteUrl = (
 ).replace(/\/$/, "");
 
 export const seo = {
-  title: "Scrap Collection & Recycling in Sriperumbudur | King Enterprises",
+  title: "Industrial Scrap Trading & Recycling in Sriperumbudur | King Enterprises",
   description:
-    "King Enterprises collects and recycles steel, aluminium, plastic, packaging and electrical scrap for automotive plants in Sriperumbudur, Irungattukottai, Oragadam and Mambakkam. Own lorries, 300-ton balers, since 2016.",
+    "King Enterprises is an industrial scrap business in Sriperumbudur, Tamil Nadu, established in 2016. Industrial scrap trading, scrap collection and handling, material recovery and a planned recycling material plant.",
+};
+
+export const businessSeo = {
+  title: "Our Business & Future | King Enterprises, Sriperumbudur",
+  description:
+    "How King Enterprises works: our business approach, a 1.5-acre facility with a 72-member workforce in Sriperumbudur, and our plan for a recycling material plant handling twelve types of recyclable material.",
 };
 
 export const company = {
   name: "King Enterprises",
-  tagline: "Reduce, recycle, recreate",
+  tagline: "Turning industrial scrap into valuable resources.",
+  services: ["Industrial scrap trading", "Scrap management", "Recycling solutions"],
   established: 2016,
-  proprietor: "Vinoth B",
-  proprietorQualification: "B.E. (Electrical and Electronics Engineering)",
-  proprietorExperience: "9 years",
+  owner: "Vinoth B",
   group: "Sri Ambal Traders & Enterprises",
   gst: "33AXFPV6636H1Z5",
   msme: "TN-08-0057180",
@@ -32,11 +37,12 @@ export const company = {
 
 export const locations = {
   factory: {
-    label: "Factory and yard",
+    label: "Factory address",
     lines: [
       "Plot No. 4, Chand Nagar, Kiloy Village",
       "Vayalur Post, Sriperumbudur Taluk",
       "Kancheepuram District 602105",
+      "Tamil Nadu, India",
     ],
     contactPeople: "Sarath, Maaran",
     phones: ["8610745342", "9361297316"],
@@ -44,25 +50,72 @@ export const locations = {
     mapQuery: "Kiloy Village, Sriperumbudur, Tamil Nadu 602105",
   },
   office: {
-    label: "Office",
+    label: "Office address",
     lines: [
       "No. 2, Bakthavachalam Street",
       "Sriperumbudur Village and Post, Sriperumbudur Taluk",
       "Kancheepuram District 602105",
+      "Tamil Nadu, India",
     ],
     contactPeople: "Vinoth B",
     phones: ["7397447397"],
-    // The form reads "bv103132@gmail.comm"; corrected to .com — confirm with client.
-    email: "bv103132@gmail.com",
     mapQuery: "Bakthavachalam Street, Sriperumbudur, Tamil Nadu 602105",
   },
 };
 
+export const email = locations.factory.email;
 export const primaryPhone = locations.factory.phones[0];
+
+export const contacts = [
+  { who: "Sarath", where: "Factory", phone: locations.factory.phones[0] },
+  { who: "Maaran", where: "Factory", phone: locations.factory.phones[1] },
+  { who: "Vinoth B", where: "Office", phone: locations.office.phones[0] },
+];
 
 export function formatPhone(n: string) {
   return `${n.slice(0, 5)} ${n.slice(5)}`;
 }
+
+export const about =
+  "King Enterprises is an industrial scrap business established in 2016 and headquartered in Sriperumbudur, Tamil Nadu. Over the years, we have developed our business operations and infrastructure to serve the industrial sector through scrap-related commercial activities and material recovery opportunities.";
+
+export const aboutMore =
+  "Our business is built on industrial relationships, operational experience and a commitment to creating value from recyclable resources. With an established facility, a 72-member workforce and a growing vision for recycling, King Enterprises aims to expand its capabilities and contribute to the evolving scrap and recycling industry.";
+
+// The turnover is the historical figure from the supplier registration form.
+// Confirm the financial year and current figure with the client before launch.
+export const glance = [
+  { term: "Established", value: "2016" },
+  { term: "Annual turnover", value: "₹7.10 Cr" },
+  { term: "Workforce", value: "72", unit: "employees" },
+  { term: "Facility area", value: "1.5", unit: "acres" },
+  { term: "Business location", value: "Sriperumbudur", unit: "Tamil Nadu", wide: true },
+  { term: "Working shifts", value: "Two" },
+];
+
+export const pillars = [
+  {
+    image: "material-steel",
+    title: "Industrial scrap trading",
+    body: "Industrial scrap-related commercial activities and material trading, connecting industrial material sources with potential buyers and recovery opportunities.",
+  },
+  {
+    image: "material-electrical",
+    title: "Scrap collection and handling",
+    body: "Organised handling and coordination of industrial scrap materials.",
+  },
+  {
+    image: "material-aluminium",
+    title: "Material recovery",
+    body: "Exploring opportunities to recover value from recyclable industrial materials and support resource utilisation.",
+  },
+  {
+    image: "material-plastic",
+    title: "Recycling development",
+    body: "Planning for future expansion into a dedicated recycling material plant.",
+    planned: true,
+  },
+] as const;
 
 // Positions are schematic (viewBox 800 × 500), projected from approximate
 // latitude/longitude so relative direction and distance read correctly.
@@ -75,7 +128,7 @@ export type Hub = {
   labelSide: "left" | "right";
 };
 
-export const yard = { name: "Kiloy yard", x: 470, y: 222 };
+export const yard = { name: "Kiloy facility", x: 470, y: 222 };
 
 export const hubs: Hub[] = [
   {
@@ -112,6 +165,8 @@ export const hubs: Hub[] = [
   },
 ];
 
+// Names as recorded in the supplier registration form. Confirm each relationship
+// and permission to show the name before launch.
 export const customers = [
   { name: "Ascend Performance Materials", hub: "irungattukottai", work: "Automotive injection moulding" },
   { name: "Steels Shoppe Pvt Ltd", hub: "irungattukottai", work: "Automotive body parts" },
@@ -122,106 +177,46 @@ export const customers = [
   { name: "Myung Automachine", hub: "kancheepuram", work: "Plastic and aluminium auto parts" },
 ] as const;
 
-// Material streams inferred from the customers' production lines.
-// Confirm the final list with the client before launch.
-export const materials = [
+export const leaders = [
   {
-    image: "material-steel",
-    short: "Steel",
-    title: "Steel and ferrous scrap",
-    body: "Press-shop skeletons, body-panel trimmings, rejected stampings and turnings.",
-    sources: "Press shops, stamping and body-part lines",
-    handling: "Separated from mixed loads and baled on our 300-ton presses.",
+    name: "Sarath",
+    role: "Director",
+    body: "Providing leadership and business direction, supporting the company's development and long-term growth.",
   },
   {
-    image: "material-aluminium",
-    short: "Aluminium",
-    title: "Aluminium",
-    body: "Casting runners, rejected parts, machining chips and profile offcuts.",
-    sources: "Die-casting cells and machining lines",
-    handling: "Kept apart from steel so it reaches aluminium recyclers clean.",
-  },
-  {
-    image: "material-plastic",
-    short: "Plastics",
-    title: "Engineering plastics",
-    body: "Injection-moulding runners, purgings and rejected mouldings.",
-    sources: "Injection-moulding shops",
-    handling: "Bagged by grade so it can be reground and reused.",
-  },
-  {
-    image: "material-packaging",
-    short: "Packaging",
-    title: "Packaging waste",
-    body: "Cartons, pallets, stretch film and damaged returnable packing.",
-    sources: "Stores, inbound logistics and packing lines",
-    handling: "Cartons are baled; pallets and film are collected separately.",
-  },
-  {
-    image: "material-glass",
-    short: "Glass",
-    title: "Glass and lamp rejects",
-    body: "Bulb-line rejects and glass components.",
-    sources: "Lamp and bulb production lines",
-    handling: "Collected in closed crates and kept out of mixed loads.",
-  },
-  {
-    image: "material-electrical",
-    short: "Electrical",
-    title: "Electrical scrap",
-    body: "Cable offcuts, wiring harness rejects and electrical sub-assemblies.",
-    sources: "Harness and electrical sub-assembly lines",
-    handling: "Copper-bearing scrap is separated so the metal can be recovered.",
+    name: "Vinoth",
+    role: "Owner",
+    body: "Overseeing business operations and driving the company's continued development and commercial growth.",
   },
 ];
 
-export const steps: { icon: "phone" | "lorry" | "press" | "recycle"; where: string; title: string; body: string }[] = [
-  {
-    icon: "phone",
-    where: "At your plant",
-    title: "Tell us what is piling up",
-    body: "Call or send an enquiry. We agree the material, the expected quantity and how often you need it cleared.",
-  },
-  {
-    icon: "lorry",
-    where: "On the road",
-    title: "Our lorry collects it",
-    body: "Seven of our own lorries run scheduled and on-call pickups across the corridor.",
-  },
-  {
-    icon: "press",
-    where: "Kiloy yard",
-    title: "We sort and bale at Kiloy",
-    body: "Each load is weighed, separated by material and compacted on our 300-ton presses.",
-  },
-  {
-    icon: "recycle",
-    where: "At the recycler",
-    title: "It goes back into production",
-    body: "Baled material is dispatched for recycling, so it returns as raw material instead of landfill.",
-  },
+export const approach: { icon: "handshake" | "search" | "gears" | "link" | "leaf"; text: string }[] = [
+  { icon: "handshake", text: "Developing strong industrial business relationships." },
+  { icon: "search", text: "Identifying valuable recyclable material opportunities." },
+  { icon: "gears", text: "Building efficient business and material handling operations." },
+  { icon: "link", text: "Expanding commercial partnerships." },
+  { icon: "leaf", text: "Exploring sustainable recycling opportunities." },
 ];
 
 export type ProfileFact = { term: string; value: string; note?: string; copy?: boolean };
 
-export const profile: { title: string; facts: ProfileFact[] }[] = [
+// The machines are listed on the registration form as injection moulding machines.
+// Confirm their current role in the scrap business with the client before launch.
+export const infrastructure: { title: string; facts: ProfileFact[] }[] = [
   {
-    title: "The company",
+    title: "Facility",
     facts: [
-      { term: "Established", value: "2016", note: "Sriperumbudur, Tamil Nadu" },
-      { term: "Proprietor", value: "Vinoth B", note: "B.E. (EEE), 9 years in industry" },
-      { term: "Organisation", value: "Proprietorship", note: "Medium scale" },
-      { term: "Group company", value: company.group },
+      { term: "Factory facility", value: "1.5 acres", note: "Kiloy Village, Sriperumbudur" },
+      { term: "Sanctioned power", value: "120 kWe" },
+      { term: "Machinery", value: "3 × 300 ton", note: "Dhosang injection moulding machines, South Korean make" },
     ],
   },
   {
-    title: "Capacity",
+    title: "People",
     facts: [
-      { term: "Presses", value: "3 × 300 ton", note: "Dhosang, South Korea, 2022" },
-      { term: "Fleet", value: "7 lorries", note: "Our own scrap collection vehicles" },
-      { term: "Yard", value: "1.5 acres", note: "Kiloy Village, Sriperumbudur" },
-      { term: "Power", value: "120 kW", note: "Sanctioned load, with standby generator" },
-      { term: "Working pattern", value: "2 shifts", note: "Monday to Saturday" },
+      { term: "Workforce", value: "72 members" },
+      { term: "Teams", value: "Dedicated", note: "Operational teams for each function" },
+      { term: "Working pattern", value: "Two shifts" },
     ],
   },
   {
@@ -230,7 +225,6 @@ export const profile: { title: string; facts: ProfileFact[] }[] = [
       { term: "GSTIN", value: company.gst, copy: true },
       { term: "MSME (Udyam)", value: company.msme, copy: true },
       { term: "TNPCB consent", value: company.pcbConsent, copy: true },
-      { term: "Quality system", value: "ISO roadmap", note: "Certification in progress" },
     ],
   },
 ];
@@ -240,4 +234,14 @@ export const workforce = [
   { label: "Support", count: 15 },
   { label: "Quality", count: 11 },
   { label: "Development", count: 4 },
+];
+
+export const reasons = [
+  "Established business operations since 2016.",
+  "Industrial presence in Sriperumbudur.",
+  "1.5-acre facility.",
+  "72-member workforce.",
+  "Established industrial business relationships.",
+  "Focus on material recovery and recycling opportunities.",
+  "Long-term vision for recycling infrastructure.",
 ];
