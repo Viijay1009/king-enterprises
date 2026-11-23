@@ -37,9 +37,9 @@ export function Hero() {
 
       <div className="mx-auto grid max-w-7xl gap-14 px-4 pt-56 pb-14 sm:px-6 sm:pt-72 lg:flex-1 lg:grid-cols-12 lg:items-center lg:gap-8 lg:px-8 lg:pt-20 lg:pb-10">
         <div className="lg:col-span-8">
-          <h1 className="stencil text-[3.3rem] sm:text-[5.4rem] lg:text-[5.6rem] xl:text-[6.4rem]">
+          <h1 className="headline text-[2.7rem] sm:text-[4.4rem] lg:text-[4.6rem] xl:text-[5.4rem]">
             {headline.map((line, i) => (
-              <span key={line} className="hero-spray block text-balance" style={delay(i)}>
+              <span key={line} className={`hero-spray block text-balance ${i === headline.length - 1 ? "headline-outline" : ""}`} style={delay(i)}>
                 {line}
               </span>
             ))}

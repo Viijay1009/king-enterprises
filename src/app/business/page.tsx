@@ -67,7 +67,7 @@ const icons: Record<(typeof approach)[number]["icon"], React.ReactNode> = {
 export default function BusinessPage() {
   return (
     <main id="main">
-      {/* Page header: the same sprayed stencil as the home hero */}
+      {/* Page header: the same sprayed headline as the home hero */}
       <section className="relative isolate overflow-hidden bg-navy-950 text-white">
         <div className="hero-settle absolute inset-0 -z-20">
           <ImageSlot
@@ -102,9 +102,9 @@ export default function BusinessPage() {
             <span className="hero-rise display block text-3xl text-gold-400 sm:text-4xl" style={delay(1)}>
               Our business &amp; future
             </span>
-            <span className="stencil mt-5 block text-[3rem] sm:text-[4.8rem] lg:text-[5.6rem] xl:text-[6.2rem]">
+            <span className="headline mt-5 block text-[2.6rem] sm:text-[4.2rem] lg:text-[4.8rem] xl:text-[5.4rem]">
               {headline.map((line, i) => (
-                <span key={line} className="hero-spray block" style={delay(i + 1)}>
+                <span key={line} className={`hero-spray block ${i === headline.length - 1 ? "headline-outline" : ""}`} style={delay(i + 1)}>
                   {line}
                 </span>
               ))}

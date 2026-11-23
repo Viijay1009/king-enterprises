@@ -37,7 +37,7 @@ export function MaterialRing() {
         ))}
       </svg>
       <figcaption className="absolute inset-0 grid place-content-center text-center">
-        <span className="ring-count stencil block text-[7rem] leading-none text-white sm:text-[8.5rem]">12</span>
+        <span className="ring-count headline block text-[7rem] leading-none text-white sm:text-[8.5rem]">12</span>
         <span className="mx-auto mt-1 block max-w-[13ch] text-[15px] leading-snug text-steel-200">
           types of recyclable material
         </span>

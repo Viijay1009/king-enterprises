@@ -27,7 +27,7 @@
 /* Defined outside @theme: Tailwind only emits theme variables that a utility uses. */
 :root {
   --font-display: var(--font-big-shoulders), "Arial Narrow", sans-serif;
-  --font-stencil: var(--font-big-shoulders-stencil), var(--font-big-shoulders), "Arial Narrow", sans-serif;
+  --font-headline: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
 }
 
 html {
@@ -50,14 +50,13 @@ body {
   text-wrap: balance;
 }
 
-/* Stencil cut, reserved for the hero headline: the lettering sprayed on bins and lorries. */
-.stencil {
-  font-family: var(--font-stencil);
-  font-variation-settings: "opsz" 72;
-  font-weight: 900;
-  line-height: 0.9;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
+/* Archivo, heavy and slightly narrowed: reserved for page headlines and the closing line. */
+.headline {
+  font-family: var(--font-headline);
+  font-variation-settings: "wdth" 88;
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.025em;
 }
 
 :focus-visible {
@@ -95,7 +94,7 @@ body {
   }
 }
 
-/* Each headline line is "sprayed" through the stencil, left to right. */
+/* Each headline line is "sprayed" on, left to right. */
 @keyframes spray {
   from {
     clip-path: inset(0 100% 0 0);
@@ -144,6 +143,25 @@ body {
 .hero-spray {
   animation: spray 760ms cubic-bezier(0.65, 0, 0.35, 1) both;
   animation-delay: calc(150ms + var(--i, 0) * 220ms);
+}
+/* The sustainability line arrives as a gold outline, then fills solid once sprayed on. */
+@keyframes outline-fill {
+  from {
+    color: transparent;
+  }
+}
+.headline-outline {
+  color: var(--color-gold-400);
+  -webkit-text-stroke: 0.025em var(--color-gold-400);
+  paint-order: stroke fill;
+}
+.hero-spray.headline-outline {
+  animation:
+    spray 760ms cubic-bezier(0.65, 0, 0.35, 1) both,
+    outline-fill 900ms var(--ease-out-quint) both;
+  animation-delay:
+    calc(150ms + var(--i, 0) * 220ms),
+    calc(1250ms + var(--i, 0) * 220ms);
 }
 .hero-settle {
   animation: settle 2200ms var(--ease-out-quint) both;

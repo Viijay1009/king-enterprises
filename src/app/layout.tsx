@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Big_Shoulders, Big_Shoulders_Stencil, Public_Sans } from "next/font/google";
+import { Archivo, Big_Shoulders, Public_Sans } from "next/font/google";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { company, seo, siteUrl } from "@/content/site";
@@ -15,13 +15,10 @@ const display = Big_Shoulders({
   fallback: ["Arial Narrow", "sans-serif"],
 });
 
-const stencil = Big_Shoulders_Stencil({
-  variable: "--font-big-shoulders-stencil",
+const headline = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
-  axes: ["opsz"],
-  // Next.js has no metrics for Big Shoulders, so skip the generated fallback and use a narrow system face
-  adjustFontFallback: false,
-  fallback: ["Arial Narrow", "sans-serif"],
+  axes: ["wdth"],
 });
 
 const body = Public_Sans({
@@ -65,7 +62,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en-IN"
-      className={`${display.variable} ${stencil.variable} ${body.variable} antialiased`}
+      className={`${display.variable} ${headline.variable} ${body.variable} antialiased`}
     >
       <body className="font-sans">
         <a

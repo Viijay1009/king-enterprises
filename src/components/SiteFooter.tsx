@@ -30,9 +30,9 @@ const link = "transition-colors duration-150 hover:text-white";
 export function SiteFooter() {
   return (
     <footer className="relative overflow-hidden bg-navy-950 text-steel-200">
-      {/* The company's own line, in the hero's stencil cut, closes every page */}
+      {/* The company's own line, in the hero's headline face, closes every page */}
       <div className="mx-auto max-w-7xl px-4 pt-16 sm:px-6 sm:pt-20 lg:px-8">
-        <p className="stencil max-w-[16ch] text-[2.9rem] text-balance text-white sm:text-[4.6rem] lg:text-[6rem]">
+        <p className="headline max-w-[18ch] text-[2.5rem] text-balance text-white sm:text-[4rem] lg:text-[5.2rem]">
           {company.tagline}
         </p>
         <div aria-hidden className="mt-8 h-1 w-24 bg-gold-500" />
