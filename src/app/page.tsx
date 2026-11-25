@@ -5,7 +5,7 @@ import { Hero } from "@/components/Hero";
 import { ImageSlot } from "@/components/ImageSlot";
 import { InView } from "@/components/InView";
 import { StructuredData } from "@/components/StructuredData";
-import { about, aboutMore, customers, glance, hubs, leaders, pillars } from "@/content/site";
+import { about, aboutMore, customers, glance, hubs, leaders, mission, pillars, vision } from "@/content/site";
 
 const delay = (i: number) => ({ "--i": i }) as React.CSSProperties;
 
@@ -54,6 +54,32 @@ export default function Home() {
             </dl>
             <p className="mt-8 text-sm text-steel-600">Annual turnover as recorded in our supplier registration.</p>
           </InView>
+
+          {/* Vision and mission */}
+          <div id="vision-mission" className="mt-16 grid scroll-mt-24 gap-6 md:grid-cols-2 lg:mt-20 lg:gap-8">
+            <article className="relative overflow-hidden rounded-2xl bg-navy-950 p-6 text-white sm:p-8 lg:p-10">
+              <h2 className="flex items-center gap-2.5 text-sm font-semibold text-gold-400">
+                <span aria-hidden className="size-2 rotate-45 bg-gold-500" />
+                Our vision
+              </h2>
+              <p className="display mt-5 text-3xl leading-tight sm:text-4xl">{vision}</p>
+              <span aria-hidden className="absolute inset-x-0 bottom-0 h-1 bg-gold-500" />
+            </article>
+            <article className="rounded-2xl bg-white p-6 ring-1 ring-steel-200 sm:p-8 lg:p-10">
+              <h2 className="flex items-center gap-2.5 text-sm font-semibold text-steel-600">
+                <span aria-hidden className="size-2 rotate-45 bg-gold-500" />
+                Our mission
+              </h2>
+              <ol className="mt-5 space-y-5">
+                {mission.map((m, i) => (
+                  <li key={m} className="flex gap-4">
+                    <span className="display w-8 shrink-0 text-3xl text-gold-500 tabular-nums">{i + 1}</span>
+                    <p className="pt-1 text-lg leading-relaxed text-navy-950">{m}</p>
+                  </li>
+                ))}
+              </ol>
+            </article>
+          </div>
         </div>
       </section>
 

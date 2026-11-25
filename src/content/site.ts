@@ -82,6 +82,16 @@ export const about =
 export const aboutMore =
   "Our business is built on industrial relationships, operational experience and a commitment to creating value from recyclable resources. With an established facility, a 72-member workforce and a growing vision for recycling, King Enterprises aims to expand its capabilities and contribute to the evolving scrap and recycling industry.";
 
+// Drafted from the business profile; confirm the wording with the client before launch.
+export const vision =
+  "To become a trusted recycling partner to India's industrial sector, with a dedicated plant that recovers value from twelve types of recyclable materials.";
+
+export const mission = [
+  "Serve industrial organisations with dependable scrap trading, collection and handling.",
+  "Recover value from recyclable resources and support their sustainable use.",
+  "Invest in our people, our facility and our recycling capabilities as we grow.",
+];
+
 // The turnover is the historical figure from the supplier registration form.
 // Confirm the financial year and current figure with the client before launch.
 export const glance = [
